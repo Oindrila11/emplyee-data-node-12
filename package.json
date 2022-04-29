@@ -1,0 +1,25 @@
+{
+  "name": "emplyee-data-node-12",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oindrila11/emplyee-data-node-12.git"
+  },
+  "author": "Oindrila",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Oindrila11/emplyee-data-node-12/issues"
+  },
+  "homepage": "https://github.com/Oindrila11/emplyee-data-node-12#readme",
+  "devDependencies": {
+    "jest": "^28.0.2"
+  }
+}
