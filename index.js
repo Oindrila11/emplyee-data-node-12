@@ -1,5 +1,7 @@
-const inquirer = require("inquirer");
 
+const { writeFile, copyFile } = require ('./utils/generate-site.js');
+const inquirer = require("inquirer");
+const generatePage = require('./src/page-template');
 const fs = require("fs");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -74,7 +76,7 @@ if(!managerData.team) {
 return inquirer.prompt([
     {
         type: 'list',
-        name: 'eployeeRole',
+        name: 'employeeRole',
         message:'What is the team memebers role?',
         choices: ['Engineer', 'Intern'],
         default: 'Enginner',
@@ -139,6 +141,19 @@ promptManager()
 .then(managerData => {
     return generatePage(managerData);
 })
+.then(pageHTML => {
+    return writeFile(pageHTML);
+})
+.then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile();
+})
+.then(copyFileResponse => {
+    console.log(copyFileResponse);
+})
+.catch(err => {
+    console.log(err);
+});
 
 
 
