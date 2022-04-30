@@ -21,5 +21,8 @@
   "homepage": "https://github.com/Oindrila11/emplyee-data-node-12#readme",
   "devDependencies": {
     "jest": "^28.0.2"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.4"
   }
 }
