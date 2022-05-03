@@ -6,28 +6,26 @@ const generatePage = require('./src/page-template.js');
  const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-//fs.writeFile('./dist/index.html');
-   // if (err) {
-    //  console.log(err);
-    // return;
-    //}
-     
-          //console.log('Page created! Check out index.html in this directory to see it!');
-  
-//     fs.copyFile('./src/style.css', './dist/style.css', err => {
-//       if (err) {
-//         console.log(err);
-//         return;
-//       }
-//       console.log('Style sheet copied successfully!');
-//     });
-//  });
-
-
-
+const { list } = require('process');
+const teamMembers = []
+const menu = () => {
+inquirer.prompt({
+    type: 'list',
+    Massage: 'What do you wanna do next',
+    choices: ['addIntern', 'addEngineer', 'Finish'],
+    name: 'choice'
+}).then(userChoice => {
+    console.log(userChoice);
+    if(userChoice.choice === 'addIntern'){
+        promptIntern();
+    } else if(userChoice.choice === 'addEngineer'){
+        promptEngineer();
+    }
+})
+}
  const promptManager = () => {
     
-     return inquirer.prompt([
+      inquirer.prompt([
          {
             type: 'input' ,
             name: 'managerName',
@@ -80,26 +78,29 @@ const Intern = require("./lib/Intern");
                  }
              },   
          },   
-     ])
+     ]).then(managerTeam => {
+        console.log(managerTeam);
+        var managerMember = new Manager(managerTeam.managerName, managerTeam.managerId, managerTeam.managerEmail, managerTeam.officeNumber);
+        teamMembers.push(managerMember);
+        menu();
+     })
  };
- const promptTeam = managerData => {
+ const promptEngineer = () => {
      console.log(`
  =================
  Add a team member
  =================
  `);
- if(!managerData.team) {
-     managerData.team = [];
+//  if(!managerData.team) {
+//      managerData.team = [];
     
- }
- return inquirer.prompt([
-     {
-         type: 'list',
-         name: 'employeeRole',
-         message:'What is the team memebers role?',
-         choices: ['Engineer', 'Intern'],
-         default: 'Enginner',
-     },
+ //}
+  inquirer.prompt([
+    {
+        type: 'input',
+        name: 'engineerName',
+        message: 'Whats the engineers name?',
+    },
      {
          type: 'input' ,
          name: 'id',
@@ -139,64 +140,104 @@ const Intern = require("./lib/Intern");
              }
          },   
      },
-     {
-        type: 'confirm',
-        name: 'confirmSchool',
-        message: 'Would you like to enter a school name?',
-        default: true
-      },
-      {
-        type: 'input',
-        name: 'school',
-        message: 'enter the name of your school',
-        when: ({ confirmSchool }) => {
-          if (confirmSchool) {
-            return true;
-          } else {
-            return false;
-          }
-        }
-      },
+     
      {
          type: 'confirm',
          name: 'confirmAddteam',
          message: 'Would you like to enter another team member?',
          default: false
        } 
- ])
- .then(teamData => {
-     managerData.team.push(teamData);
-     if(teamData.confirmAddteam) {
-         return promptTeam(managerData);
-     } else {
-         return managerData;
-     }
- });
-  };
-//  const generatePage = ()
- promptManager()
- .then(promptTeam)
- .then(managerData => {
-     return generatePage(managerData);
-     
-     //fs.writeFile('./index.html', pageHTML, err =>{
-     //if(err) throw new Error(err);
-     //console.log('page created!');
- //});
+ ]).then(engineerData => {
+    console.log(engineerData);
+    var engineerMember = new Engineer(engineerData.engineerName, engineerData.id, engineerData.email, engineerData.github );
+    teamMembers.push(engineerMember);
+    console.log(teamMembers);
+    menu();
  })
-  .then(pageHTML => {
-     return writeFile(pageHTML);
-  })
-  .then(writeFileResponse => {
-      console.log(writeFileResponse);
-     return copyFile();
-  })
-  .then(copyFileResponse => {
-      console.log(copyFileResponse);
-  })
-  .catch(err => {
-     console.log(err);
-  });
+};
+const promptIntern = () => {
+     inquirer.prompt([
+    {
+        type: 'input',
+        name: 'internName',
+        message: 'Whats the interns name?',
+    },
+   
+      {
+        type: 'input',
+        name: 'school',
+        message: 'enter the name of your school',
+        
+      },
+      
+    
+        {
+            type: 'input' ,
+            name: 'id',
+            message: 'Enter employee Id',
+            validate: idInput => {
+                if(idInput) {
+                    return true;
+                }else {
+                    console.log('Please enter an employee Id!');
+                    return false;
+                }
+            },
+        },
+       {
+            type: 'input' ,
+            name: 'email',
+            message: 'Enter email id',
+            validate: emailInput => {
+                if(emailInput) {
+                    return true;
+                }else {
+                    console.log('Please enter an email Id!');
+                    return false;
+                }
+            },   
+        },
+        
+    ]).then(internData => {
+       console.log(internData);
+       var internMember = new Intern(internData.internName, internData.id, internData.email, internData.school );
+       teamMembers.push(internMember);
+       console.log(teamMembers);
+       menu();
+    })
+};
+promptManager();
+//  .then(teamData => {
+//     //  managerData.team.push(teamData);
+//     //  if(teamData.confirmAddteam) {
+//     //      return promptTeam(managerData);
+//     //  } else {
+//     //      return managerData;
+//     //  }
+//     console.log(teamData);
+//  });
+// }
+
+
+//  promptManager()
+//  .then(promptTeam)
+//  .then(managerData => {
+//      return generatePage(managerData);
+ 
+//  })
+//   .then(pageHTML => {
+//      return writeFile(pageHTML);
+//   })
+//   .then(writeFileResponse => {
+//       console.log(writeFileResponse);
+//      return copyFile();
+//   })
+//   .then(copyFileResponse => {
+//       console.log(copyFileResponse);
+//   })
+//   .catch(err => {
+//      console.log(err);
+//   });
 
 
 
