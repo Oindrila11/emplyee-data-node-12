@@ -18,11 +18,29 @@ inquirer.prompt({
     console.log(userChoice);
     if(userChoice.choice === 'addIntern'){
         promptIntern();
-    } else if(userChoice.choice === 'addEngineer'){
+    } else if  (userChoice.choice === 'addEngineer'){
         promptEngineer();
+    // }else if(userChoice.choice === 'Finish'){
+    //      generatePage(teamMembers);
+    //     }
     }
 })
 }
+
+//  .then(pageHTML => {
+//     return writeFile(pageHTML);
+//  })
+//  .then(writeFileResponse => {
+//     console.log(writeFileResponse);
+//     return copyFile();
+//  })
+//  .then(copyFileResponse => {
+//      console.log(copyFileResponse);
+//  })
+//  .catch(err => {
+//     console.log(err);
+//  });
+// }
  const promptManager = () => {
     
       inquirer.prompt([
@@ -205,7 +223,28 @@ const promptIntern = () => {
        console.log(teamMembers);
        menu();
     })
-};
+}
+// .then(userChoice => {
+//     console.log(userChoice);
+//     if(userChoice.choice === 'Finish'){
+//       return generatePage(teamMembers);
+//     }
+// })
+
+//    .then(pageHTML => {
+//       return writeFile(pageHTML);
+//   })
+//    .then(writeFileResponse => {
+//       console.log(writeFileResponse);
+//       return copyFile();
+//   })
+//    .then(copyFileResponse => {
+//        console.log(copyFileResponse);
+//    })
+//   .catch(err => {
+//       console.log(err);
+//    });
+
 promptManager();
 //  .then(teamData => {
 //     //  managerData.team.push(teamData);
@@ -218,27 +257,9 @@ promptManager();
 //  });
 // }
 
-
-//  promptManager()
-//  .then(promptTeam)
-//  .then(managerData => {
-//      return generatePage(managerData);
- 
-//  })
-//   .then(pageHTML => {
-//      return writeFile(pageHTML);
-//   })
-//   .then(writeFileResponse => {
-//       console.log(writeFileResponse);
-//      return copyFile();
-//   })
-//   .then(copyFileResponse => {
-//       console.log(copyFileResponse);
-//   })
-//   .catch(err => {
-//      console.log(err);
-//   });
-
+  
+  
+  
 
 
 

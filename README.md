@@ -12,13 +12,13 @@ Due to time constraint I was not able to dynamically create the html page and st
 
 ## Future goals:
 
-1. Add properly created html page
+1. Add dynamically created html page
 2. Make the website easier for people to use
 
 
 
 ## walkthrough Video
-
+https://vimeo.com/705600470
 
 
 ## License & Copyright

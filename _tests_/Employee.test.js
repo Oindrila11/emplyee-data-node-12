@@ -6,7 +6,7 @@ test('creates a employee object' ,() => {
     expect(employee.name).toEqual(expect.any(String));
     expect(employee.id).toEqual(expect.any(Number));
     expect(employee.email).toEqual(expect.stringContaining('@'));
-    expect(employee.role).toBe('Employee');
+
 });
 
 test('get method for getName valid value return',()=>{
